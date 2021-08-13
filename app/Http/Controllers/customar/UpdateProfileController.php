@@ -10,6 +10,7 @@ use App\Models\Customar;
 use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Hash;
 
 class UpdateProfileController extends Controller
 {
@@ -58,7 +59,7 @@ class UpdateProfileController extends Controller
         CarComment::where("customar_id", $id)->delete();
         Comments::where("customar_id", $id)->delete();
         Like::where("cus_id", $id)->delete();
-        BookCar::where("cus_id", $id)->delete();
+        BookCar::where("customar_id", $id)->delete();
         if (session()->has("loggedUser") && session()->has("email")) {
             session()->pull("loggedUser");
             session()->pull("email");
@@ -76,4 +77,6 @@ class UpdateProfileController extends Controller
             echo 0;
         }
     }
+
+   
 }

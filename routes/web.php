@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\admin\CarBookController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\CarCategory;
 use App\Http\Controllers\admin\CarController;
 use App\Http\Controllers\admin\CategoryController;
+use App\Http\Controllers\admin\CommentsController;
+use App\Http\Controllers\admin\CustomarController;
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\GalleryController;
+use App\Http\Controllers\admin\LikesController;
 use App\Http\Controllers\admin\PostController;
+use App\Http\Controllers\admin\ReviewController;
 use App\Http\Controllers\admin\UserController;
 use App\Http\Controllers\customar\AccountController;
 use App\Http\Controllers\customar\BlogCommentsControler;
@@ -14,10 +20,12 @@ use App\Http\Controllers\customar\BookCarController;
 use App\Http\Controllers\customar\CarController as CustomarCarController;
 use App\Http\Controllers\customar\CategoryPostController;
 use App\Http\Controllers\customar\Comments;
+use App\Http\Controllers\customar\GalleryController as CustomarGalleryController;
 use App\Http\Controllers\customar\HomeController;
 use App\Http\Controllers\customar\LikeController;
 use App\Http\Controllers\customar\LoginController;
 use App\Http\Controllers\customar\LogoutController;
+use App\Http\Controllers\customar\ResetPasswordController;
 use App\Http\Controllers\customar\SignUpController;
 use App\Http\Controllers\customar\SubscribeController;
 use App\Http\Controllers\customar\UpdateProfileController;
@@ -39,6 +47,7 @@ Route::post("/create_blog_comment", [BlogCommentsControler::class, "create"]);
 Route::get("/getCommets", [BlogCommentsControler::class, "getCommets"]);
 Route::post("/subscribe", [SubscribeController::class, "subscribe"]);
 Route::get("/getLikes",[LikeController::class,"get"]);
+Route::get("/gallery",[CustomarGalleryController::class,"index"])->name("gallery");
 
 
 Route::group(["middleware" => "cAuth"], function () {
@@ -51,6 +60,8 @@ Route::group(["middleware" => "cAuth"], function () {
     Route::get("/update-profile",[UpdateProfileController::class,"index"])->name("update-profile");
     Route::post("/update-profile",[UpdateProfileController::class,"update"]);
     Route::get("/delete-profile",[UpdateProfileController::class,"delete"]);
+    Route::get("/reset-password",[ResetPasswordController::class,"index"])->name("reset-password");
+    Route::post("/reset-password",[ResetPasswordController::class,"reset_password"]);
 });
 Route::group(["middleware" => "noauth"], function () {
     Route::get("/signup", [SignUpController::class, "index"])->name("signup");
@@ -61,13 +72,32 @@ Route::group(["middleware" => "noauth"], function () {
 
 
 
+
 Route::middleware("auth")->group(function () {
-    Route::get('/admin/dashboard', function () {
-        return view('admin/dashboard');
-    })->name("dashboard");
+  Route::get("/admin/dashboard",[DashboardController::class,"index"])->name("dashboard");
+  Route::get("/admin/get-car-book",[DashboardController::class,"get"]);
+  Route::post("/admin/confirm-book",[DashboardController::class,"confirm"]);
+  Route::post("/admin/not-confirm-book",[DashboardController::class,"not_confirm"]);
+  Route::get("/admin/load-customars",[DashboardController::class,"customars"]);
+  Route::get("/admin/all-customars",[CustomarController::class,"index"])->name("customars");
+  Route::get("/admin/load-all-customars",[CustomarController::class,"customars"]);
+  Route::get("/admin/likes",[LikesController::class,"index"])->name("likes");
+  Route::get("/admin/review",[ReviewController::class,"index"])->name("review");
+  Route::get("/admin/load-all-review",[ReviewController::class,"review"]);
+  Route::get("/admin/delete-review",[ReviewController::class,"delete"]);
+  Route::get("/admin/car-books",[CarBookController::class,"index"])->name("car-book");
+  Route::get("/admin/load-all-car-book",[CarBookController::class,"car_book"]);
+  Route::get("/admin/comments",[CommentsController::class,"index"])->name("comments");
+  Route::get("/admin/load-all-comments",[CommentsController::class,"comments"]);
+  Route::get("/admin/delete-comments",[CommentsController::class,"delete"]);
+
 
     // users
-    Route::get("/admin/all-users", [UserController::class, "index"])->name("register-user");
+    Route::get("/admin/admins", [UserController::class, "index"])->name("admins");
+    Route::get("/admin/get-user",[UserController::class,"get"]);
+    Route::get("/admin/edit-user",[UserController::class,"edit"]);
+    Route::post("/admin/update-user",[UserController::class,"update"]);
+    Route::get("/admin/delete-user",[UserController::class,"delete"]);
 
     // car category
     Route::get("/admin/car_category", [CarCategory::class, "index"])->name("car_category");

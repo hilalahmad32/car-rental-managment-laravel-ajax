@@ -51,7 +51,7 @@
                         <li><a href="{{ route('home') }}">Home</a></li>
                         <li><a href="{{ route('cars') }}">Car</a></li>
                         <li><a href="{{route('blog')}}">Blog</a></li>
-                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="{{route('gallery')}}">Gallery</a></li>
                         <li><a href="about.html">About</a></li>
                         <li><a href="contact.html">Contact</a></li>
                     </ul>
@@ -117,8 +117,9 @@
         </div>
     </section>
     <script src="{{asset("js/jquery.js")}}"></script>
-    <script src="{{asset("js/bootstrap.min.js")}}"></script>
     <script src="{{asset("js/action.js")}}"></script>
+    <script src="{{asset("js/bootstrap.min.js")}}"></script>
+    {{-- <script src="{{asset("js/home.js")}}"></script> --}}
 
 </body>
 

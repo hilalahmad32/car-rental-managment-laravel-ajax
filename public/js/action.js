@@ -486,7 +486,7 @@ $(document).ready(function () {
                 $("#posts-table").html(data);
             }
         });
-    })
+    });
 
 
     function getGallery() {
@@ -580,6 +580,123 @@ $(document).ready(function () {
         })
     })
 
+    const loadUser = () => {
+        $.ajax({
+            url: "/admin/get-user",
+            type: "GET",
+            success: (data) => {
+                $("#get-user").html(data);
+            }
+        })
+    }
+    loadUser();
+    $("#save-user").on("submit", function (e) {
+        e.preventDefault();
+        const fname = $("#fname").val()
+        const lname = $("#lname").val()
+        const username = $("#username").val()
+        const email = $("#email").val()
+        const password = $("#password").val()
+        const c_password = $("#c_password").val()
+        const image = $("#image").val();
+
+        const formdata = new FormData(this);
+
+        if (fname == "" || lname == "" || email == "" || username == "" || password == "" || c_password == "" || image == "") {
+            show_message("error", "Please Fill All The Field");
+
+        } else if (password != c_password) {
+            show_message("error", "Password Are Not Matched");
+        } else {
+            $.ajax({
+                url: "/admin/add-user",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data == 1) {
+                        show_message("success", "Admin Add Successfully")
+                        loadUser();
+                        $("#save-user").trigger("reset");
+                        $("#users").modal("hide");
+
+                    } else if (data == 2) {
+                        show_message("error", "Emai already Exist")
+                    }
+                    else {
+                        show_message("error", "Admin Not Add Successfully")
+                    }
+                }
+            })
+        }
+
+    });
+
+
+    $(document).on("click", "#user-edit", function () {
+        const id = $(this).data("id");
+        $.ajax({
+            url: "/admin/edit-user",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                $("#get-user-form").html(data);
+            }
+        })
+    });
+
+
+    $("#update-user").on("submit", function (e) {
+        e.preventDefault();
+        const fname = $("#edit_fname").val()
+        const lname = $("#edit_lname").val()
+        const username = $("#edit_username").val()
+        const email = $("#edit_email").val()
+
+        const formdata = new FormData(this);
+
+        if (fname == "" || lname == "" || email == "" || username == "") {
+            show_message("error", "Please Fill All The Field");
+
+        } else {
+            $.ajax({
+                url: "/admin/update-user",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    if (data == 1) {
+                        show_message("success", "Admin Update Successfully")
+                        loadUser();
+                        $("#edit-user").modal("hide");
+                    }
+                    else {
+                        show_message("error", "Admin Not Update Successfully")
+                    }
+                }
+            })
+        }
+
+    });
+
+    $(document).on("click", "#user-delete", function () {
+        const id = $(this).data("id");
+        $.ajax({
+            url: "/admin/delete-user",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "Data delete successfully");
+                    loadUser();
+                } else {
+                    show_message("error", "Data Not Delete successfully");
+                }
+            }
+        })
+    })
     const loadReview = () => {
         const id = $("#car_id").val();
         $.ajax({
@@ -623,6 +740,8 @@ $(document).ready(function () {
         }
 
     });
+
+
 
 
     const comments = () => {
@@ -854,25 +973,164 @@ $(document).ready(function () {
         })
     });
 
-    $("#delete-account").on("click",function(e){
+    $("#delete-account").on("click", function (e) {
         e.preventDefault();
-        if(confirm("Are you Sure you want to delete account")){
+        if (confirm("Are you Sure you want to delete account")) {
             $.ajax({
-                url:"/delete-profile",
-                type:"GET",
-                success:(data)=>{
+                url: "/delete-profile",
+                type: "GET",
+                success: (data) => {
                     if (data == 1) {
                         show_message("success", "Account Delete Successfully");
-                        window.location.href="/";
+                        window.location.href = "/";
                     } else {
                         show_message("error", "Account Not Delete successfully");
                     }
                 }
             })
         }
-        
-    })
 
+    });
+
+    const loadBookCars = () => {
+        $.ajax({
+            url: "/admin/get-car-book",
+            type: "GET",
+            success: (data) => {
+                // console.log(data);
+                $("#get-car-book").html(data);
+            }
+        })
+    }
+    loadBookCars();
+
+    $(document).on("click", "#confirm", function () {
+        const id = $(this).data("id");
+        var _token = $("input[name=_token]").val();
+        // console.log(id);
+        $.ajax({
+            url: "/admin/confirm-book",
+            type: "POST",
+            data: { id: id, _token: _token },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "Car Book Confirm");
+                    loadAllBookCars();
+                    loadBookCars();
+                } else {
+                    show_message("error", "Something woring");
+                }
+            }
+        })
+    })
+    $(document).on("click", "#not-confirm", function () {
+        const id = $(this).data("id");
+        var _token = $("input[name=_token]").val();
+        // console.log(id);
+        $.ajax({
+            url: "/admin/not-confirm-book",
+            type: "POST",
+            data: { id: id, _token: _token },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "Car Not  Confirm");
+                    loadAllBookCars();
+                    loadBookCars();
+                } else {
+                    show_message("error", "Something woring");
+                }
+            }
+        })
+    });
+
+
+    const loadCustomars = () => {
+        $.ajax({
+            url: "/admin/load-customars",
+            type: "GET",
+            success: (data) => {
+                $("#get-customars").html(data);
+            }
+        })
+    }
+    loadCustomars();
+    const loadAllCustomars = () => {
+        $.ajax({
+            url: "/admin/load-all-customars",
+            type: "GET",
+            success: (data) => {
+                $("#load-all-customars").html(data);
+            }
+        })
+    }
+    loadAllCustomars();
+    const loadAllReview = () => {
+        $.ajax({
+            url: "/admin/load-all-review",
+            type: "GET",
+            success: (data) => {
+                $("#load-all-review").html(data);
+            }
+        })
+    }
+    loadAllReview();
+
+    const loadAllBookCars = () => {
+        $.ajax({
+            url: "/admin/load-all-car-book",
+            type: "GET",
+            success: (data) => {
+                // console.log(data);
+                $("#get-all-car-book").html(data);
+            }
+        })
+    }
+    loadAllBookCars();
+    const loadAllCommets = () => {
+        $.ajax({
+            url: "/admin/load-all-comments",
+            type: "GET",
+            success: (data) => {
+                // console.log(data);
+                $("#get-all-comments").html(data);
+            }
+        })
+    }
+    loadAllCommets();
+
+
+    $(document).on("click","#delete-review",function(){
+        const id=$(this).data("id");
+        $.ajax({
+            url:"/admin/delete-review",
+            type:"GET",
+            data:{id:id},
+            success:(data)=>{
+                if(data ==1){
+                    show_message("success","Review Delete Successfully");
+                    loadAllReview();
+                }else{
+                    show_message("error","Review Not Delete Successfully");
+                }
+            }
+        })
+    })
+    $(document).on("click","#delete-comment",function(){
+        const id=$(this).data("id");
+        $.ajax({
+            url:"/admin/delete-comments",
+            type:"GET",
+            data:{id:id},
+            success:(data)=>{
+                if(data ==1){
+                    show_message("success","Comment Delete Successfully");
+                    loadAllCommets();
+                }else{
+                    show_message("error","Comment Not Delete Successfully");
+                }
+            }
+        })
+    })
     const show_message = (type, text) => {
         if (type == "error") {
             var message_box = $("#error-message");
@@ -887,4 +1145,4 @@ $(document).ready(function () {
             message_box.css({ display: "none" });
         }, 3000);
     }
-})
+});

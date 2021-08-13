@@ -13,15 +13,15 @@ class LikeController extends Controller
     {
         $like = new Like();
         $user_id = session("loggedUser");
+        $car_id=$request->id;
         // $is_like = Like::where("cus_id", $user_id)->first();
-        $is_like=DB::table('likes')->where("cus_id",$user_id)->first();
+        $is_like=DB::table('likes')->where(["cus_id"=>$user_id,"car_id"=>$car_id])->first();
         // return $is_like;
         if ($is_like) {
-        $is_like=DB::table('likes')->where("cus_id",$user_id)->delete();
-           
+         DB::table('likes')->where(["cus_id"=>$user_id,"car_id"=>$car_id])->delete();
         } else {
             $like->cus_id = $user_id;
-            $like->car_id = $request->id;
+            $like->car_id = $car_id;
             $like->like =1;
             $like->save();
         }

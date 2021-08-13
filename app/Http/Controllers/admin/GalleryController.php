@@ -83,7 +83,7 @@ class GalleryController extends Controller
                 <input type='text' value='{$gallery->id}' name='id' id='id' class='form-control form-control-lg'>
                 <input type='file' name='new_file' id='new_file' class='form-control form-control-lg'>
                 <img src='/upload/gallery/{$gallery->gallery}' style='height:100px;width:100px;'>
-                <input type='text' value='{$gallery->gallery}' name='old_file' id='old_file' class='form-control form-control-lg'>
+                <input type='hidden' value='{$gallery->gallery}' name='old_file' id='old_file' class='form-control form-control-lg'>
             </div>";
         echo $output;
     }
@@ -97,12 +97,11 @@ class GalleryController extends Controller
             $destinaiton = public_path("upload\\gallery\\" . $gallery->gallery);
             if (File::exists($destinaiton)) {
                 unlink($destinaiton);
-            } else {
+            } 
                 $new_file = $request->file("new_file");
                 $save_new_file = rand() . "." . $new_file->extension();
                 $new_file->move(public_path("upload/gallery"), $save_new_file);
                 $gallery->gallery = $save_new_file;
-            }
         } else {
             $gallery->gallery = $request->old_file;
         }

@@ -12,71 +12,13 @@
                 This is Small Image gallery
             </p>
             <div class="row">
+                @foreach ($gallery as $gal)
                 <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
                     <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
+                        <img src="{{asset("upload/gallery")}}/{{$gal->gallery}}" class="rounded" alt="">
                     </div>
                 </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 col-sm-12 mt-2">
-                    <div class="gallery-imgs">
-                        <img src="images/cat (1).jpeg" class="rounded" alt="">
-                    </div>
-                </div>
+                @endforeach
             </div>
             <div class="load mt-5">
                 <button class="loading-button">Load More</button>

@@ -78,14 +78,38 @@
                         </div>
                         <div class="flex  nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('register')" :active="request()->routeIs('register')">
-                                {{ __('Add-Admin') }}
+                            <x-nav-link :href="route('admins')" :active="request()->routeIs('admins')">
+                                {{ __('Admins') }}
                             </x-nav-link>
                         </div>
                         <div class="flex  nav-link">
                             <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('register-user')" :active="request()->routeIs('register-user')">
-                                {{ __('Admins') }}
+                            <x-nav-link :href="route('customars')" :active="request()->routeIs('customars')">
+                                {{ __('Customar') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="flex  nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <x-nav-link :href="route('likes')" :active="request()->routeIs('likes')">
+                                {{ __('Likes') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="flex  nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <x-nav-link :href="route('review')" :active="request()->routeIs('review')">
+                                {{ __('Review') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="flex  nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <x-nav-link :href="route('car-book')" :active="request()->routeIs('car-book')">
+                                {{ __('Car Books') }}
+                            </x-nav-link>
+                        </div>
+                        <div class="flex  nav-link">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <x-nav-link :href="route('comments')" :active="request()->routeIs('comments')">
+                                {{ __('Comments') }}
                             </x-nav-link>
                         </div>
                     </div>

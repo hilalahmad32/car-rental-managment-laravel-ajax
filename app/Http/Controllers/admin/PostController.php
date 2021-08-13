@@ -160,7 +160,7 @@ class PostController extends Controller
                                 <label for=''>Enter Car Image</label>
                                 <input type='file' name='new_image' id='new_image' class='form-control form-control-lg'>
                                 <img src='{$image}' class='img-fluid' style='width:50px;height:50px;' alt=''>
-                                  <input type='text' value='{$post->image}' name='old_img' id='old_img' class='form-control form-control-lg'>
+                                  <input type='hidden' value='{$post->image}' name='old_img' id='old_img' class='form-control form-control-lg'>
                             </div>";
         echo $output;
     }

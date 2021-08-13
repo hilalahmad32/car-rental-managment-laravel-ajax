@@ -162,7 +162,7 @@ class CarController extends Controller
                                 <label for=''>Enter Car Image</label>
                                 <input type='file' name='new_car_img' id='new_car_img' class='form-control form-control-lg'>
                                 <img src='{$image}' class='img-fluid' style='width:50px;height:50px;' alt=''>
-                                  <input type='text' value='{$car->car_image}' name='old_car_img' id='old_car_img' class='form-control form-control-lg'>
+                                  <input type='hidden' value='{$car->car_image}' name='old_car_img' id='old_car_img' class='form-control form-control-lg'>
                             </div>
                             <div class='form-group'>
                                 <label for=''>Enter Car Price</label>
