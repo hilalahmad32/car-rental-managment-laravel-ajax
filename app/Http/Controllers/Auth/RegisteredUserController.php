@@ -49,17 +49,16 @@ class RegisteredUserController extends Controller
                 $image=$request->file("image");
                 $new_image=rand().".".$image->extension();
                 $image->move(public_path("upload"),$new_image);
-                
     
             $user = User::create([
                 'fname' => $request->fname,
                 'lname' => $request->lname,
                 'username' => $request->username,
+                'roll'=>$request->roll,
                 'image'=>$new_image,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
             ]);
-    
             // event(new Registered($user));
             if($user){
                 echo 1;

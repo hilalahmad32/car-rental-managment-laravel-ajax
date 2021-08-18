@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h5>Car Category ()</h5>
+                        <h5>Car Category ( <span id="total-car-category"></span> )</h5>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#carcategory">
                             Add Category

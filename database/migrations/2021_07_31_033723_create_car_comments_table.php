@@ -15,8 +15,8 @@ class CreateCarCommentsTable extends Migration
     {
         Schema::create('car_comments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("car_id")->constrained("cars");
-            $table->foreignId("customar_id")->constrained("customars");
+            $table->foreignId("car_id")->constrained("cars")->onDelete("cascade");
+            $table->foreignId("customar_id")->constrained("customars")->onDelete("cascade");
             $table->integer("review");
             $table->text("comment");
             $table->timestamps();

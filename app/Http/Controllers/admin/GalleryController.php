@@ -14,7 +14,12 @@ class GalleryController extends Controller
     {
         return view("admin.gallery");
     }
-
+public function totalCount()
+{
+    $output = "";
+    $gallery = Gellary::all();
+    echo $output .=count($gallery);
+}
     public function create(Request $request)
     {
         $gallery = new Gellary();
@@ -32,6 +37,8 @@ class GalleryController extends Controller
             echo 0;
         }
     }
+
+
 
     public function get()
     {
@@ -80,7 +87,7 @@ class GalleryController extends Controller
         $output = "";
         $output .= " <div class='form-group'>
                 <label for=''>Enter Image</label>
-                <input type='text' value='{$gallery->id}' name='id' id='id' class='form-control form-control-lg'>
+                <input type='hidden' value='{$gallery->id}' name='id' id='id' class='form-control form-control-lg'>
                 <input type='file' name='new_file' id='new_file' class='form-control form-control-lg'>
                 <img src='/upload/gallery/{$gallery->gallery}' style='height:100px;width:100px;'>
                 <input type='hidden' value='{$gallery->gallery}' name='old_file' id='old_file' class='form-control form-control-lg'>

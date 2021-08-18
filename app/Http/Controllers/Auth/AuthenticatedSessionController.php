@@ -31,8 +31,14 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+        
+        if(Auth::user()->roll == 1){
+            return redirect()->intended(RouteServiceProvider::HOME);
+        }
+        if(Auth::user()->roll == 0){
+        return redirect()->intended(RouteServiceProvider::NoAdmin);
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+        }
     }
 
     /**
@@ -48,7 +54,6 @@ class AuthenticatedSessionController extends Controller
         $request->session()->invalidate();
 
         $request->session()->regenerateToken();
-
         return redirect('/admin');
     }
 }

@@ -20,6 +20,7 @@ class User extends Authenticatable
         'fname',
         'lname',
         'username',
+        "roll",
         'email',
         'image',
         'password',

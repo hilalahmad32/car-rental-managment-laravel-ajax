@@ -1,6 +1,6 @@
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <a class="navbar-brand" href="index.html">Start Bootstrap</a>
+        <a class="navbar-brand" href="{{ route('dashboard') }}">CRMS</a>
         <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i
                 class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
@@ -19,7 +19,7 @@
                 <a class="nav-link dropdown-toggle" id="userDropdown" href="#" role="button" data-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">{{Auth::user()->username}}</i></a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userDropdown">
-                    <a class="dropdown-item" href="#">Settings</a>
+                    <a class="dropdown-item" href="{{ route('profiles') }}">Settings</a>
                     <a class="dropdown-item" href="#">Activity Log</a>
                     <div class="dropdown-divider"></div>
                     <form method="POST" action="{{ route('logout') }}">
@@ -39,79 +39,73 @@
             <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                 <div class="sb-sidenav-menu">
                     <div class="nav">
+                        @if (Auth::user()->roll == 1)
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                                {{ __('Dashboard') }}
-                            </x-nav-link>
+                            <a href="{{ route('dashboard') }}" class="{{Request::routeIs("dashboard") ? 'actives' :""}}">Dashboard</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('car_category')" :active="request()->routeIs('car_category')">
-                                {{ __('Car Category') }}
-                            </x-nav-link>
-                        </div>
-                        <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fab fa-car-side"></i></i></div>
-                            <x-nav-link :href="route('car')" :active="request()->routeIs('car')">
-                                {{ __('Car') }}
-                            </x-nav-link>
-                        </div>
+                            <a href="{{ route('car_category') }}" class="{{Request::routeIs("car_category") ? 'actives' :""}}">Car Category</a>
 
-                        <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fab fa-car-side"></i></i></div>
-                            <x-nav-link :href="route('category')" :active="request()->routeIs('category')">
-                                {{ __('Category') }}
-                            </x-nav-link>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fab fa-car-side"></i></i></div>
-                            <x-nav-link :href="route('posts')" :active="request()->routeIs('posts')">
-                                {{ __('Posts') }}
-                            </x-nav-link>
+                            <a href="{{ route('car') }}" class="{{Request::routeIs("car") ? 'actives' :""}}">Car</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fab fa-car-side"></i></i></div>
-                            <x-nav-link :href="route('gallery')" :active="request()->routeIs('gallery')">
-                                {{ __('Gallery') }}
-                            </x-nav-link>
+                            <a href="{{ route('category') }}" class="{{Request::routeIs("category") ? 'actives' :""}}">Category</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('admins')" :active="request()->routeIs('admins')">
-                                {{ __('Admins') }}
-                            </x-nav-link>
+                            <a href="{{ route('post') }}" class="{{Request::routeIs("post") ? 'actives' :""}}">Posts</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('customars')" :active="request()->routeIs('customars')">
-                                {{ __('Customar') }}
-                            </x-nav-link>
+                            <a href="{{ route('gallerys') }}" class="{{Request::routeIs("gallerys") ? 'actives' :""}}">
+                            Gallery</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('likes')" :active="request()->routeIs('likes')">
-                                {{ __('Likes') }}
-                            </x-nav-link>
+                            <a href="{{ route('admins') }}" class="{{Request::routeIs("admins") ? 'actives' :""}}">
+                            Admin</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('review')" :active="request()->routeIs('review')">
-                                {{ __('Review') }}
-                            </x-nav-link>
+                            <a href="{{ route('customars') }}" class="{{Request::routeIs("customars") ? 'actives' :""}}">
+                            Customer</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('car-book')" :active="request()->routeIs('car-book')">
-                                {{ __('Car Books') }}
-                            </x-nav-link>
+                            <a href="{{ route('about') }}" class="{{Request::routeIs("about") ? 'actives' :""}}">
+                            About</a>
                         </div>
                         <div class="flex  nav-link">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            <x-nav-link :href="route('comments')" :active="request()->routeIs('comments')">
-                                {{ __('Comments') }}
-                            </x-nav-link>
+                            <a href="{{ route('contact') }}" class="{{Request::routeIs("contact") ? 'actives' :""}}">
+                            Contact</a>
                         </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('likes') }}" class="{{Request::routeIs("likes") ? 'actives' :""}}">
+                            Likes</a>
+                        </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('review') }}" class="{{Request::routeIs("review") ? 'actives' :""}}">
+                            Review</a>
+                        </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('car-book') }}" class="{{Request::routeIs("car-book") ? 'actives' :""}}">
+                            Car Book</a>
+                        </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('comments') }}" class="{{Request::routeIs("comments") ? 'actives' :""}}">
+                            Comments</a>
+                        </div>
+                        @endif
+                        
+                        @if (Auth::user()->roll == 0)
+                        <div class="flex  nav-link">
+                            <a href="{{ route('car') }}" class="{{Request::routeIs("car") ? 'actives' :""}}">Car</a>
+                        </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('post') }}" class="{{Request::routeIs("post") ? 'actives' :""}}">Posts</a>
+                        </div>
+                        <div class="flex  nav-link">
+                            <a href="{{ route('gallerys') }}" class="{{Request::routeIs("gallerys") ? 'actives' :""}}">
+                            Gallery</a>
+                        </div>
+                        @endif
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">

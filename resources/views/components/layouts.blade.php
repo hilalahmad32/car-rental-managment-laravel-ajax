@@ -26,11 +26,11 @@
                
                 <div class="right-side-header">
                     @if (session()->has("loggedUser"))
-                    <a href="/book-car">Account</a>
-                    <a href="{{ route('logouts')}}">Logout</a>
+                    <a href="/book-car" class="{{Request::routeIs("book-car") ?'activess' : ""}}">Account</a>
+                    <a href="{{ route('logouts')}}" class="{{Request::routeIs("loggouts") ?'activess' : ""}}">Logout</a>
                     @else
-                    <a href="{{ route('signup')}}">Sign up</a>
-                    <a href="{{ route('signin') }}">Sign in</a>
+                    <a href="{{ route('signup')}}" class="{{Request::routeIs("signup") ?'activess' : ""}}">Sign up</a>
+                    <a href="{{ route('signin') }}" class="{{Request::routeIs("signin") ?'activess' : ""}}">Sign in</a>
                     @endif
 
                 </div>
@@ -48,12 +48,12 @@
                 <div id="main-nav" class="responsive main-side">
                     <ul>
                         <i id="close" class="fa fa-times" aria-hidden="true"></i>
-                        <li><a href="{{ route('home') }}">Home</a></li>
-                        <li><a href="{{ route('cars') }}">Car</a></li>
-                        <li><a href="{{route('blog')}}">Blog</a></li>
-                        <li><a href="{{route('gallery')}}">Gallery</a></li>
-                        <li><a href="about.html">About</a></li>
-                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="{{ route('home') }}" class="{{Request::routeIs("home") ?'actives' : ""}}">Home</a></li>
+                        <li><a href="{{ route('cars') }}" class="{{Request::routeIs("cars") ?'actives' : ""}}">Car</a></li>
+                        <li><a href="{{route('blog')}}" class="{{Request::routeIs("blog") ?'actives' : ""}}">Blog</a></li>
+                        <li><a href="{{route('gallery')}}" class="{{Request::routeIs("gallery") ?'actives' : ""}}">Gallery</a></li>
+                        <li><a href="{{ route('abouts') }}" class="{{Request::routeIs("abouts") ?'actives' : ""}}">About</a></li>
+                        <li><a href="{{route('contacts')}}" class="{{Request::routeIs("contacts") ?'actives' : ""}}">Contact</a></li>
                     </ul>
                 </div>
                 <div class="right-side">

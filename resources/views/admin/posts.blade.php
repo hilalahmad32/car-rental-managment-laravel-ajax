@@ -1,12 +1,12 @@
 <x-app-layout>
-    <x-slot name="title">Car</x-slot>
+    <x-slot name="title">Post</x-slot>
 
     <x-slot name="content">
         <div class="container my-5">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>Post</h4>
+                        <h4>Post  ( <span id="total-posts"></span> ) </h4>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addpost">
                             Add Post

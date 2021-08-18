@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateGellariesTable extends Migration
+class CreateAboutsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateGellariesTable extends Migration
      */
     public function up()
     {
-        Schema::create('gellaries', function (Blueprint $table) {
+        Schema::create('abouts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("user_id")->constrained("users")->onDelete("cascade");
-            $table->string("gallery");
+            $table->string("about_image");
+            $table->text("about");
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateGellariesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('gellaries');
+        Schema::dropIfExists('abouts');
     }
 }

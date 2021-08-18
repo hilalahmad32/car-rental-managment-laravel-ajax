@@ -15,6 +15,13 @@ class UserController extends Controller
         return view("admin.admins");
     }
 
+    public function totalCount()
+    {
+        $output = "";
+        $users = User::all();
+        echo $output .=count($users);
+    }
+
     public function get()
     {
         $output = "";

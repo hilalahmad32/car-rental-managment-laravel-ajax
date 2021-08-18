@@ -5,7 +5,7 @@
           <div class="card">
               <div class="card-header">
                 <div class="d-flex justify-content-between">
-                    <h5>Admins ()</h5>
+                    <h5>Admins ( <span id="total-user"></span> )</h5>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#users">
                         Add Admins
                     </button>
@@ -72,6 +72,14 @@
                         <x-input id="image" class="block mt-1 w-full" type="file" name="image" :value="old('image')"
                              autofocus />
                     </div>
+                    <!-- User Roll -->
+                    <div class="mt-4">
+                        <x-label for="roll" :value="__('Roll')" />
+                       <select id="roll" class="block mt-1 w-full"  name="roll">
+                           <option value="1">Admin</option>
+                           <option value="0">Normal</option>
+                       </select>
+                    </div>
                     <!-- Password -->
                     <div class="mt-4">
                         <x-label for="password" :value="__('Password')" />
@@ -89,10 +97,6 @@
                     </div>
 
                     <div class="flex items-center justify-end mt-4">
-                        <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                            {{ __('Already registered?') }}
-                        </a>
-
                         <x-button class="ml-4">
                             {{ __('Register') }}
                         </x-button>
@@ -127,8 +131,6 @@
                 <form id="update-user">
                     @csrf
                     <div id="get-user-form"></div>
-                 
-                    
                     <div class="flex items-center justify-end mt-4">
                         <x-button class="ml-4">
                             {{ __('Register') }}

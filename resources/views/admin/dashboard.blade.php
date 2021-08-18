@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-xl-6 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
@@ -171,7 +171,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-xl-6 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>
@@ -187,7 +187,7 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="col-xl-6 col-sm-12">
                     <div class="card mb-4">
                         <div class="card-header">
                             <i class="fas fa-table mr-1"></i>

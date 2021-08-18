@@ -14,6 +14,13 @@ class CarCategory extends Controller
         return view("admin.car-category");
        
     }
+    public function totalCount()
+    {
+        $output="";
+        $total=ModelCategory::all();
+        $output .=count($total);
+        echo $output;
+    }
 
     public function loadData()
     {

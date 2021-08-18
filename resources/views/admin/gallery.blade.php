@@ -5,7 +5,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>Gallery</h4>
+                        <h4>Gallery ( <span id="total-gallery"></span> ) </h4>
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modelId">
                             Add Gallery
                         </button>
@@ -42,10 +42,6 @@
                                 <button type="submit" class="btn btn-success">Save</button>
                             </div>
                         </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-primary">Save</button>
                     </div>
                 </div>
             </div>

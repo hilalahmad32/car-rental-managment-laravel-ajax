@@ -6,7 +6,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <h4>Car</h4>
+                        <h4>Car ( <span id="total-car"></span> )</h4>
                         <!-- Button trigger modal -->
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addcar">
                             Add Car

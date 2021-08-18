@@ -15,8 +15,8 @@ class CreateBookCarsTable extends Migration
     {
         Schema::create('book_cars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId("car_id")->constrained("cars");
-            $table->foreignId("customar_id")->constrained("customars");
+            $table->foreignId("car_id")->constrained("cars")->onDelete("cascade");
+            $table->foreignId("customar_id")->constrained("customars")->onDelete("cascade");
             $table->integer("days");
             $table->string("book")->default("not confirm");
             $table->timestamps();

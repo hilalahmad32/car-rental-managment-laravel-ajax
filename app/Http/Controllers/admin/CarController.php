@@ -11,18 +11,26 @@ use Illuminate\Support\Facades\File;
 
 class CarController extends Controller
 {
-    public function index(){
-        $category=CarCategory::all();
-        return view("admin.car",["category"=>$category]);
+    public function index()
+    {
+        $category = CarCategory::all();
+        return view("admin.car", ["category" => $category]);
     }
 
+    public function totalCount()
+    {
+        $output = "";
+        $car = Car::all();
+        echo $output .=count($car);
+    }
 
     public function get()
     {
-        $output="";
-        $car=Car::orderBy("id","DESC")->get();
-        if(count($car) > 0){
-            $output .="
+        if (Auth::user()->roll == 1) {
+            $output = "";
+            $car = Car::orderBy("id", "DESC")->get();
+            if (count($car) > 0) {
+                $output .= "
             <div class='table-responsve'>
                 <table class='table table-bordered'>
                     <thead>
@@ -38,9 +46,9 @@ class CarController extends Controller
                         </tr>
                     </thead>
                     <tbody>";
-                    foreach($car as $cars){
-                        $image=asset("upload/cars/".$cars->car_image);
-                        $output .="
+                foreach ($car as $cars) {
+                    $image = asset("upload/cars/" . $cars->car_image);
+                    $output .= "
                         <tr>
                             <td>{$cars->id}</td>
                             <td>{$cars->car_name}</td>
@@ -51,22 +59,63 @@ class CarController extends Controller
                             <td><button class='btn btn-success' data-id='{$cars->id}' id='car-edit-btn' data-toggle='modal' data-target='#edit-car'>Edit</button></td>
                             <td><button class='btn btn-danger' data-id='{$cars->id}' id='car-delete-btn'>Delete</button></td>
                         </tr>";
-                    }
-                $output .='
+                }
+                $output .= '
                 </tbody>
                 </table>
                 </div>';
-            echo $output;
+                echo $output;
+            }
+        } else {
+            $output = "";
+            $car = Car::orderBy("id", "DESC")->where("user_id", Auth::user()->id)->get();
+            if (count($car) > 0) {
+                $output .= "
+                <div class='table-responsve'>
+                    <table class='table table-bordered'>
+                        <thead>
+                            <tr>
+                                <td>Car id</td>
+                                <td>Car Name</td>
+                                <td>Car Category</td>
+                                <td>Car image</td>
+                                <td>Car price</td>
+                                <td>Username</td>
+                                <th>Edit</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>";
+                foreach ($car as $cars) {
+                    $image = asset("upload/cars/" . $cars->car_image);
+                    $output .= "
+                            <tr>
+                                <td>{$cars->id}</td>
+                                <td>{$cars->car_name}</td>
+                                <td>{$cars->car_category->car_cat_name}</td>
+                                <td><img src='{$image}' style='width:50px;height=50px;' alt=''></td>
+                                <td>{$cars->car_price}</td>
+                                <td>{$cars->users->username}</td>
+                                <td><button class='btn btn-success' data-id='{$cars->id}' id='car-edit-btn' data-toggle='modal' data-target='#edit-car'>Edit</button></td>
+                                <td><button class='btn btn-danger' data-id='{$cars->id}' id='car-delete-btn'>Delete</button></td>
+                            </tr>";
+                }
+                $output .= '
+                    </tbody>
+                    </table>
+                    </div>';
+                echo $output;
+            }
         }
     }
 
-     public function search(Request $request)
+    public function search(Request $request)
     {
-        $output="";
-        $search="%".$request->search."%";
-        $car=Car::orderBy("id","DESC")->where("car_name","like",$search)->get();
-        if(count($car) > 0){
-            $output .="
+        $output = "";
+        $search = "%" . $request->search . "%";
+        $car = Car::orderBy("id", "DESC")->where("car_name", "like", $search)->get();
+        if (count($car) > 0) {
+            $output .= "
             <div class='table-responsve'>
                 <table class='table table-bordered'>
                     <thead>
@@ -82,9 +131,9 @@ class CarController extends Controller
                         </tr>
                     </thead>
                     <tbody>";
-                    foreach($car as $cars){
-                        $image=asset("upload/cars/".$cars->car_image);
-                        $output .="
+            foreach ($car as $cars) {
+                $image = asset("upload/cars/" . $cars->car_image);
+                $output .= "
                         <tr>
                             <td>{$cars->id}</td>
                             <td>{$cars->car_name}</td>
@@ -96,45 +145,46 @@ class CarController extends Controller
                             <td><button class='btn btn-danger' data-id='{$cars->id}' id='car-delete-btn'>Delete</button></td>
 
                         </tr>";
-                    }
-                $output .='
+            }
+            $output .= '
                 </tbody>
                 </table>
                 </div>';
             echo $output;
         }
     }
-    public function create(Request $request){
-        $car=new Car();
+    public function create(Request $request)
+    {
+        $car = new Car();
 
-        $image=$request->file("car_img");
-        $new_image=rand().".".$image->extension();
-        $image->move(public_path("upload/cars"),$new_image);
+        $image = $request->file("car_img");
+        $new_image = rand() . "." . $image->extension();
+        $image->move(public_path("upload/cars"), $new_image);
 
 
-        $car->car_cat_id=$request->car_id;
-        $car->user_id=Auth::user()->id;
-        $car->car_name=$request->car_name;
-        $car->car_desc=$request->desc;
-        $car->car_price=$request->price;
-        $car->car_image=$new_image;
-        $result=$car->save();
-        if($result){
+        $car->car_cat_id = $request->car_id;
+        $car->user_id = Auth::user()->id;
+        $car->car_name = $request->car_name;
+        $car->car_desc = $request->desc;
+        $car->car_price = $request->price;
+        $car->car_image = $new_image;
+        $result = $car->save();
+        if ($result) {
             echo 1;
-        }else{
+        } else {
             echo 0;
         }
     }
 
     public function edit(Request $request)
     {
-        $output ="";
-        $id=$request->id;
-        $category=CarCategory::all();
-        $car=Car::find($id);
-        $image=asset("upload/cars/".$car->car_image);
+        $output = "";
+        $id = $request->id;
+        $category = CarCategory::all();
+        $car = Car::find($id);
+        $image = asset("upload/cars/" . $car->car_image);
         // echo $image;
-        $output .="<div class='form-group'>
+        $output .= "<div class='form-group'>
                                 <label for=''>Enter Car Name</label>
                                 <input type='hidden' value='{$car->id}' name='edit_car_id' id='edit_car_id' class='form-control form-control-lg'>
                                 <input type='text' value='{$car->car_name}' name='edit_car_name' id='edit_car_name' class='form-control form-control-lg'>
@@ -143,15 +193,15 @@ class CarController extends Controller
                                 <label for=''>Enter Car Category</label>
                                 <select name='edit_car_cat_id' id='edit_car_cat_id' class='form-control form-control-lg'>
                                     <option disabled selected>Select Car category</option>";
-                                    foreach($category as $cat){
-                                        if($cat->id == $car->car_cat_id){
-                                            $select="selected";
-                                        }else{
-                                            $select="";
-                                        }
-                                        $output .="<option {$select} value='{$cat->id}'>{$cat->car_cat_name}</option>";
-                                    }
-                                $output .="</select>
+        foreach ($category as $cat) {
+            if ($cat->id == $car->car_cat_id) {
+                $select = "selected";
+            } else {
+                $select = "";
+            }
+            $output .= "<option {$select} value='{$cat->id}'>{$cat->car_cat_name}</option>";
+        }
+        $output .= "</select>
                             </div>
                             <div class='form-group'>
                                 <label for=''>Enter Car Description</label>
@@ -169,32 +219,32 @@ class CarController extends Controller
                                 <input type='text' value='{$car->car_price}' name='edit_price' id='edit_price' class='form-control form-control-lg'>
                             </div>";
         echo $output;
-        
-    } 
-    public function update(Request $request){
+    }
+    public function update(Request $request)
+    {
 
-        $car=Car::find($request->edit_car_id);
-        if($request->hasFile("new_car_img")){
-            $destination=public_path("upload\\cars\\".$car->car_image);
-            if(File::exists($destination)){
+        $car = Car::find($request->edit_car_id);
+        if ($request->hasFile("new_car_img")) {
+            $destination = public_path("upload\\cars\\" . $car->car_image);
+            if (File::exists($destination)) {
                 unlink($destination);
             }
-            $image=$request->file("new_car_img");
-            $new_image=rand().".".$image->extension();
-        $image->move(public_path("upload/cars"),$new_image);
-        $car->car_image=$new_image;
-        }else{
-            $car->car_image=$request->old_car_img;
+            $image = $request->file("new_car_img");
+            $new_image = rand() . "." . $image->extension();
+            $image->move(public_path("upload/cars"), $new_image);
+            $car->car_image = $new_image;
+        } else {
+            $car->car_image = $request->old_car_img;
         }
-        $car->car_cat_id=$request->edit_car_cat_id;
-        $car->user_id=Auth::user()->id;
-        $car->car_name=$request->edit_car_name;
-        $car->car_desc=$request->edit_desc;
-        $car->car_price=$request->edit_price;
-        $result=$car->save();
-        if($result){
+        $car->car_cat_id = $request->edit_car_cat_id;
+        $car->user_id = Auth::user()->id;
+        $car->car_name = $request->edit_car_name;
+        $car->car_desc = $request->edit_desc;
+        $car->car_price = $request->edit_price;
+        $result = $car->save();
+        if ($result) {
             echo 1;
-        }else{
+        } else {
             echo 0;
         }
     }
@@ -202,16 +252,16 @@ class CarController extends Controller
 
     public function delete(Request $request)
     {
-        $id=$request->id;
-        $car=Car::find($id);
-        $images=public_path("upload\\cars\\".$car->car_image);
-        if(File::exists($images)){
+        $id = $request->id;
+        $car = Car::find($id);
+        $images = public_path("upload\\cars\\" . $car->car_image);
+        if (File::exists($images)) {
             unlink($images);
         }
-        $result=$car->delete();
-        if($result){
+        $result = $car->delete();
+        if ($result) {
             echo 1;
-        }else{
+        } else {
             echo 0;
         }
     }

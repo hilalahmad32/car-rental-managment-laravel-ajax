@@ -71,6 +71,16 @@ button {
     color: black;
 }
 
+
+.right-side-header a:hover {
+    margin-left: 20px;
+    color: red;
+}
+
+.right-side-header a.activess {
+    margin-left: 20px;
+    color: red;
+}
 .main-side ul {
     display: flex;
 }
@@ -85,6 +95,21 @@ button {
     padding: 5px;
     text-transform: capitalize;
 
+}
+.main-side ul li a:hover {
+    background-color: white;
+    padding: 10px;
+    color: black;
+    width: 100%;
+    font-size: 1.2rem;
+
+}
+.main-side ul li a.actives{
+    background-color: white;
+    padding: 10px;
+    color: black;
+    width: 100%;
+    font-size: 1.2rem;
 }
 
 .right-side ul {
@@ -366,6 +391,7 @@ button {
 .account-image img{
     width: 100%;
 }
+
 
 @media (max-width:1000px) {
     .myNavbar {

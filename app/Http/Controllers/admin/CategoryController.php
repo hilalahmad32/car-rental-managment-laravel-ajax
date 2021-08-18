@@ -11,7 +11,12 @@ class CategoryController extends Controller
     public function index(){
         return view("admin.category");
     }
-
+    public function totalCount()
+    {
+        $output="";
+        $category=Category::all();
+        echo $output .=count($category);
+    }
     public function get()
     {
         $output="";

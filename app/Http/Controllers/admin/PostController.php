@@ -16,6 +16,12 @@ class PostController extends Controller
         $category = Category::all();
         return view("admin.posts", ["category" => $category]);
     }
+    public function totalCount()
+    {
+        $output = "";
+        $posts = Posts::all();
+        echo $output .=count($posts);
+    }
     public function get()
     {
         $output = "";

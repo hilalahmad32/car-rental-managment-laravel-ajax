@@ -23,7 +23,17 @@ $(document).ready(function () {
             }
         });
     }
-    loadCarCategory()
+    loadCarCategory();
+    const loadTotalCarCategory = () => {
+        $.ajax({
+            url: "/admin/total-car-category",
+            type: "GET",
+            success: (data) => {
+                $("#total-car-category").html(data);
+            }
+        })
+    }
+    loadTotalCarCategory();
 
 
     $("#search").keyup(function () {
@@ -56,6 +66,8 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data add Successfully");
                         loadCarCategory()
+                        loadTotalCarCategory();
+
                         $("#addcarCategory").trigger("reset");
                         $("#carcategory").modal("hide");
                     } else {
@@ -84,6 +96,8 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data update Successfully");
                         loadCarCategory()
+                        loadTotalCarCategory();
+
                         $("#editcarCategory").trigger("reset");
                         $("#editcategory").modal("hide");
                     } else {
@@ -115,6 +129,8 @@ $(document).ready(function () {
                 if (data == 1) {
                     show_message("success", "Data Delete Successfully");
                     loadCarCategory()
+                    loadTotalCarCategory();
+
                 } else {
                     show_message("error", "Data not Delete successfully");
                 }
@@ -123,6 +139,32 @@ $(document).ready(function () {
     })
 
 
+
+
+
+    // $("#car_img").change(function (e) {
+    //     console.log(e.target.files[0]);
+    //     const sizeFile = e.target.files[0].size;
+    //     const typeFile = e.target.files[0].type;
+    //     if (typeFile != "image/jpeg" && typeFile != "image/jpg" && typeFile != "image/png") {
+    //         show_message("error", `Not upload <span style='color:white;'>${typeFile}</span> only upload jpg and png and jpeg`);
+    //     }
+    //     if (sizeFile > 4978780) {
+    //         show_message("error", "Image size less then 4 mb");
+    //     }
+    // })
+    // $(document).on("change", "#new_car_img", function (e) {
+    //     console.log(e.target.files[0]);
+    //     const sizeFile = e.target.files[0].size;
+    //     const typeFile = e.target.files[0].type;
+    //     if (typeFile != "image/jpeg" && typeFile != "image/jpg" && typeFile != "image/png") {
+    //         // show_message("error", "upload in png or jpeg");
+    //         show_message("error", `Not upload <span style='color:white;'>${typeFile}</span> only upload jpg and png and jpeg`);
+    //     }
+    //     if (sizeFile > 4978780) {
+    //         show_message("error", "Image size less then 4 mb");
+    //     }
+    // })
 
     const loadCar = () => {
         $.ajax({
@@ -135,29 +177,16 @@ $(document).ready(function () {
     }
     loadCar()
 
-    $("#car_img").change(function (e) {
-        console.log(e.target.files[0]);
-        const sizeFile = e.target.files[0].size;
-        const typeFile = e.target.files[0].type;
-        if (typeFile != "image/jpeg" && typeFile != "image/jpg" && typeFile != "image/png") {
-            show_message("error", `Not upload <span style='color:white;'>${typeFile}</span> only upload jpg and png and jpeg`);
-        }
-        if (sizeFile > 4978780) {
-            show_message("error", "Image size less then 4 mb");
-        }
-    })
-    $(document).on("change", "#new_car_img", function (e) {
-        console.log(e.target.files[0]);
-        const sizeFile = e.target.files[0].size;
-        const typeFile = e.target.files[0].type;
-        if (typeFile != "image/jpeg" && typeFile != "image/jpg" && typeFile != "image/png") {
-            // show_message("error", "upload in png or jpeg");
-            show_message("error", `Not upload <span style='color:white;'>${typeFile}</span> only upload jpg and png and jpeg`);
-        }
-        if (sizeFile > 4978780) {
-            show_message("error", "Image size less then 4 mb");
-        }
-    })
+    const loadTotalCar = () => {
+        $.ajax({
+            url: "/admin/total-car",
+            type: "GET",
+            success: (data) => {
+                $("#total-car").html(data);
+            }
+        })
+    }
+    loadTotalCar();
 
     $("#addcars").submit(function (e) {
         e.preventDefault();
@@ -182,6 +211,7 @@ $(document).ready(function () {
                         show_message("success", "Data add Successfully");
                         $("#addcars").trigger("reset");
                         $("#addcar").modal("hide");
+                        loadTotalCar();
                         loadCar();
                     } else {
                         show_message("error", "Data Not Add Successfully");
@@ -224,6 +254,7 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data Update Successfully");
                         $("#edit-car").modal("hide");
+                        loadTotalCar();
                         loadCar();
                     } else {
                         show_message("error", "Data Not Update Successfully");
@@ -243,6 +274,7 @@ $(document).ready(function () {
             success: (data) => {
                 if (data == 1) {
                     show_message("success", "Data Delete Successfully");
+                    loadTotalCar();
                     loadCar();
                 } else {
                     show_message("error", "Data not Delete successfully");
@@ -276,7 +308,16 @@ $(document).ready(function () {
     }
     loadCategory()
 
-
+    const loadTotalCategory = () => {
+        $.ajax({
+            url: "/admin/total-category",
+            type: "GET",
+            success: function (data) {
+                $("#total-category").html(data);
+            }
+        });
+    }
+    loadTotalCategory()
     $("#search").keyup(function () {
         const search = $(this).val();
         $.ajax({
@@ -306,6 +347,7 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data add Successfully");
                         loadCategory()
+                        loadTotalCategory()
                         $("#addpostcategory").trigger("reset");
                         $("#category").modal("hide");
                     } else {
@@ -334,6 +376,7 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data update Successfully");
                         loadCategory()
+                        loadTotalCategory()
                         $("#editpostcategory").trigger("reset");
                         $("#editcat").modal("hide");
                     } else {
@@ -364,6 +407,7 @@ $(document).ready(function () {
             success: function (data) {
                 if (data == 1) {
                     show_message("success", "Data Delete Successfully");
+                    loadTotalCategory()
                     loadCategory()
                 } else {
                     show_message("error", "Data not Delete successfully");
@@ -384,6 +428,17 @@ $(document).ready(function () {
         });
     }
     loadPosts()
+
+    const loadTotalPosts = () => {
+        $.ajax({
+            url: "/admin/total-posts",
+            type: "GET",
+            success: function (data) {
+                $("#total-posts").html(data);
+            }
+        });
+    }
+    loadTotalPosts()
 
 
     $("#addposts").submit(function (e) {
@@ -408,6 +463,7 @@ $(document).ready(function () {
                         show_message("success", "Data add Successfully");
                         $("#addposts").trigger("reset");
                         $("#addpost").modal("hide");
+                        loadTotalPosts()
                         loadPosts();
                     } else {
                         show_message("error", "Data Not Add Successfully");
@@ -449,6 +505,7 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Data Update Successfully");
                         $("#editpost").modal("hide");
+                        loadTotalPosts()
                         loadPosts();
                     } else {
                         show_message("error", "Data Not Update Successfully");
@@ -468,6 +525,7 @@ $(document).ready(function () {
             success: (data) => {
                 if (data == 1) {
                     show_message("success", "Data Delete Successfully");
+                    loadTotalPosts()
                     loadPosts();
                 } else {
                     show_message("error", "Data not Delete successfully");
@@ -489,7 +547,7 @@ $(document).ready(function () {
     });
 
 
-    function getGallery() {
+    const getGallery = () => {
         $.ajax({
             type: "GET",
             url: "/admin/get_gallery",
@@ -500,6 +558,18 @@ $(document).ready(function () {
         });
     }
     getGallery();
+
+    const getTotalGallery = () => {
+        $.ajax({
+            type: "GET",
+            url: "/admin/total-gallery",
+            success: function (data) {
+                // console.log(data);
+                $("#total-gallery").html(data);
+            }
+        });
+    }
+    getTotalGallery();
     $("#submitGallery").on("submit", function (e) {
         e.preventDefault();
         var image = $("#file").val();
@@ -519,6 +589,7 @@ $(document).ready(function () {
                         show_message("success", "Data add successfully");
                         $("#submitGallery").trigger("reset");
                         $("#modelId").modal("hide");
+                        getTotalGallery();
                         getGallery();
 
                     } else {
@@ -555,6 +626,7 @@ $(document).ready(function () {
                 if (data == 1) {
                     show_message("success", "Data Add Successfully");
                     $("#edit-gallerys").modal("hide");
+                    getTotalGallery();
                     getGallery();
                 } else {
                     show_message("error", "Data Not Add Successfully");
@@ -572,6 +644,7 @@ $(document).ready(function () {
             success: (data) => {
                 if (data == 1) {
                     show_message("success", "Data delete successfully");
+                    getTotalGallery();
                     getGallery();
                 } else {
                     show_message("error", "Data Not Delete successfully");
@@ -590,6 +663,17 @@ $(document).ready(function () {
         })
     }
     loadUser();
+
+    const loadTotalUser = () => {
+        $.ajax({
+            url: "/admin/total-user",
+            type: "GET",
+            success: (data) => {
+                $("#total-user").html(data);
+            }
+        })
+    }
+    loadTotalUser();
     $("#save-user").on("submit", function (e) {
         e.preventDefault();
         const fname = $("#fname").val()
@@ -615,9 +699,11 @@ $(document).ready(function () {
                 processData: false,
                 contentType: false,
                 success: function (data) {
+                    // console.log(data);
                     if (data == 1) {
                         show_message("success", "Admin Add Successfully")
                         loadUser();
+                        loadTotalUser();
                         $("#save-user").trigger("reset");
                         $("#users").modal("hide");
 
@@ -670,6 +756,7 @@ $(document).ready(function () {
                     if (data == 1) {
                         show_message("success", "Admin Update Successfully")
                         loadUser();
+                        loadTotalUser();
                         $("#edit-user").modal("hide");
                     }
                     else {
@@ -690,6 +777,7 @@ $(document).ready(function () {
             success: (data) => {
                 if (data == 1) {
                     show_message("success", "Data delete successfully");
+                    loadTotalUser();
                     loadUser();
                 } else {
                     show_message("error", "Data Not Delete successfully");
@@ -1099,38 +1187,191 @@ $(document).ready(function () {
     loadAllCommets();
 
 
-    $(document).on("click","#delete-review",function(){
-        const id=$(this).data("id");
+    $(document).on("click", "#delete-review", function () {
+        const id = $(this).data("id");
         $.ajax({
-            url:"/admin/delete-review",
-            type:"GET",
-            data:{id:id},
-            success:(data)=>{
-                if(data ==1){
-                    show_message("success","Review Delete Successfully");
+            url: "/admin/delete-review",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "Review Delete Successfully");
                     loadAllReview();
-                }else{
-                    show_message("error","Review Not Delete Successfully");
+                } else {
+                    show_message("error", "Review Not Delete Successfully");
                 }
             }
         })
     })
-    $(document).on("click","#delete-comment",function(){
-        const id=$(this).data("id");
+    $(document).on("click", "#delete-comment", function () {
+        const id = $(this).data("id");
         $.ajax({
-            url:"/admin/delete-comments",
-            type:"GET",
-            data:{id:id},
-            success:(data)=>{
-                if(data ==1){
-                    show_message("success","Comment Delete Successfully");
+            url: "/admin/delete-comments",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "Comment Delete Successfully");
                     loadAllCommets();
-                }else{
-                    show_message("error","Comment Not Delete Successfully");
+                } else {
+                    show_message("error", "Comment Not Delete Successfully");
+                }
+            }
+        })
+    });
+
+
+    const loadAbout = () => {
+        $.ajax({
+            url: "/admin/get-about",
+            type: "GET",
+            success: (data) => {
+                // console.log(data);
+                $("#get-about").html(data);
+            }
+        })
+    }
+    loadAbout();
+    $("#addabout").on("submit", function (e) {
+        e.preventDefault();
+        const image = $("#about_image").val();
+        const about = $("#about_des").val();
+
+        const formdata = new FormData(this);
+
+        if (image == "" || about == "") {
+            show_message("error", "Please Fill The Field");
+        } else {
+            $.ajax({
+                url: "/admin/add-about",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    if (data == 1) {
+                        show_message("success", "About add Successfully");
+                        loadAbout();
+                        $("#about").modal("hide");
+                        $("#addabout").trigger("reset");
+                    } else if (data == 2) {
+                        show_message("error", "you can upload only one time now update the about section")
+                    } else {
+                        show_message("error", "Something woring");
+                    }
+                }
+            })
+        }
+    })
+
+
+    $(document).on("click", "#read-more", function (e) {
+        // e.preventDefault();
+
+        const id = $(this).data("id");
+        $.ajax({
+            url: "/admin/read-more",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                // console.log(data);
+                $("#read-mores").html(data);
+            }
+        })
+    })
+    $(document).on("click", "#about-edit-btn", function (e) {
+        // e.preventDefault();
+
+        const id = $(this).data("id");
+        $.ajax({
+            url: "/admin/edit-about",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                // console.log(data);
+                $("#edit-about").html(data);
+            }
+        })
+    })
+
+    $("#updateabout").on("submit", function (e) {
+        e.preventDefault();
+        const about = $("#edit_about").val();
+
+        const formdata = new FormData(this);
+
+        if (about == "") {
+            show_message("error", "Please Fill The Field");
+        } else {
+            $.ajax({
+                url: "/admin/update-about",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    if (data == 1) {
+                        show_message("success", "About update Successfully");
+                        loadAbout();
+                        $("#editabout").modal("hide");
+                    } else {
+                        show_message("error", "Something woring");
+                    }
+                }
+            })
+        }
+    })
+    $(document).on("click", "#about-delete-btn", function (e) {
+        // e.preventDefault();
+
+        const id = $(this).data("id");
+        $.ajax({
+            url: "/admin/delete-about",
+            type: "GET",
+            data: { id: id },
+            success: (data) => {
+                if (data == 1) {
+                    show_message("success", "About Section Delete Successfully")
+                    loadAbout();
+                }
+                else {
+                    show_message("error", "About is not delete successfully")
                 }
             }
         })
     })
+
+    $("#contact-form").on("submit", function (e) {
+        e.preventDefault();
+        const name = $("#name").val();
+        const email = $("#email").val();
+        const message = $("#message").val();
+        const formdata = new FormData(this);
+        if (name == "" || email == "" || message == "") {
+            show_message("error", "Please fill the field");
+        } else {
+            $.ajax({
+                url: "/add-contact",
+                type: "POST",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                success: (data) => {
+                    if (data == 1) {
+                        show_message("success", "Message send Successfully Replay give on email");
+                        $("#contact-form").trigger("reset");
+                    } else {
+                        show_message("error", "Something woring");
+                    }
+                }
+            });
+        }
+    });
+
+   
+
+
+
     const show_message = (type, text) => {
         if (type == "error") {
             var message_box = $("#error-message");

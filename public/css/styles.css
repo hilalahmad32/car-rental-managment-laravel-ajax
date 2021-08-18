@@ -10270,3 +10270,16 @@ body {
   font-size: 1.3rem;
   border-radius: 10px;
 }
+a{
+  color: white;
+}
+.actives{
+  background-color: white;
+  padding: 10px;
+  color: black;
+  width: 100%;
+  font-size: 1.2rem;
+}
+a:hover{
+  text-decoration: none;
+}
