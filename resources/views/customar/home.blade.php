@@ -7,7 +7,7 @@
 
         <!-- car category -->
         <section class="car-category">
-            <h1 class="text-center text-capitalize">Chose Your Car Category</h1>
+            <h1 class="text-center text-capitalize">Choose Your Car Category</h1>
             <div class="container mt-5">
                 <div class="row">
                     @forelse ($category as $cat)

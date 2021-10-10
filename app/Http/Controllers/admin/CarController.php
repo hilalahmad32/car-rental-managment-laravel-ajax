@@ -19,9 +19,7 @@ class CarController extends Controller
 
     public function totalCount()
     {
-        $output = "";
-        $car = Car::all();
-        echo $output .=count($car);
+        echo $output=Car::count();
     }
 
     public function get()
@@ -46,6 +44,7 @@ class CarController extends Controller
                         </tr>
                     </thead>
                     <tbody>";
+
                 foreach ($car as $cars) {
                     $image = asset("upload/cars/" . $cars->car_image);
                     $output .= "
@@ -113,7 +112,7 @@ class CarController extends Controller
     {
         $output = "";
         $search = "%" . $request->search . "%";
-        $car = Car::orderBy("id", "DESC")->where("car_name", "like", $search)->get();
+        $car = Car::where("car_name", "like", $search)->orderBy("id", "DESC")->get();
         if (count($car) > 0) {
             $output .= "
             <div class='table-responsve'>

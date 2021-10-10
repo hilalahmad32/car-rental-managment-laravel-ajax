@@ -13,9 +13,7 @@ class CategoryController extends Controller
     }
     public function totalCount()
     {
-        $output="";
-        $category=Category::all();
-        echo $output .=count($category);
+        echo Category::count();
     }
     public function get()
     {
@@ -43,7 +41,7 @@ class CategoryController extends Controller
                             <td><button class='btn btn-danger' id='cat-delete-btn' data-id='{$cat->id}'>Delete</button></td>
                         </tr>";
                     }
-                        
+
                     $output .="</tbody>
                 </table>
                         </div>
@@ -58,7 +56,7 @@ class CategoryController extends Controller
     {
         $output="";
         $search="%".$request->search."%";
-        $category=Category::orderBy("id","DESC")->where("cat_name","like",$search)->get();
+        $category=Category::where("cat_name","like",$search)->orderBy("id","DESC")->get();
         if(count($category) > 0){
             $output .="<div class='table-responsive'>
               <table class='table table-bordered'>
@@ -81,7 +79,7 @@ class CategoryController extends Controller
                             <td><button class='btn btn-danger' id='cat-delete-btn' data-id='{$cat->id}'>Delete</button></td>
                         </tr>";
                     }
-                        
+
                     $output .="</tbody>
                 </table>
                         </div>
@@ -93,20 +91,15 @@ class CategoryController extends Controller
     }
     public function create(Request $request)
     {
-        $category= new Category();
-
-        $category->cat_name=$request->cat_name;
-        $result=$category->save();
-        if($result){
+        Category::create([
+            'cat_name'=>$request->cat_name
+        ]);
             echo 1;
-        }else{
-            echo 0;
-        }
     }
 
 
     public function edit(Request $request){
-        
+
         $output="";
         $id=$request->id;
         $category=Category::find($id);
@@ -134,13 +127,7 @@ class CategoryController extends Controller
     }
 
       public function delete(Request $request){
-        $id=$request->id;
-        $category=Category::find($id);
-        $result=$category->delete();
-        if($result){
-            echo 1;
-        }else{
-            echo 0;
-        }
+        Category::find($request->id)->delete();
+        echo 1;
     }
 }
