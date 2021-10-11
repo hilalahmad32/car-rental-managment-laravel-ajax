@@ -13,4 +13,4 @@
 <br />
 If you like our project please leave a star ❤
 <br />
-> Main porject is <a href="https://github.com/hilalahmad32/car-rental-managment-laravel-ajax" >Here</a>
+> Wana See The Main project click <a href="https://github.com/hilalahmad32/car-rental-managment-laravel-ajax" >Here</a>
