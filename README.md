@@ -1,5 +1,5 @@
-Installation <br />
-Clone the Repo:<br />
+# Installation <br />
+> Clone the Repo:<br />
 > git clone <br />
 > cd car-rental-managment-laravel-ajax<br />
 > composer install<br />
