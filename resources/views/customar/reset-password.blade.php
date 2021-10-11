@@ -29,18 +29,22 @@
                              </button>
                            </div>
                            @endif
-                        
+
                           <form action="" method="POST">
                               @csrf
                              <div class='form-group'>
-                                    <label for=''>Enter First Name</label>
+                                    <label for=''>Enter Email</label>
                                     <input type='text'  name='email' id='email' class='form-control form-control-lg'>
                             </div>
                             <div class='form-group'>
-                                    <label for=''>Enter Last Name</label>
+                                    <label for=''>Enter Current Password</label>
                                     <input type='password' name='update_password' id='update_password' class='form-control form-control-lg'>
                             </div>
-                            
+                            <div class='form-group'>
+                                <label for=''>Enter New Password</label>
+                                <input type='password' name='new_password' id='new_password' class='form-control form-control-lg'>
+                        </div>
+
                             <div class="form-group">
                                   <button type="submit" class="btn btn-primary">Update</button>
                             </div>

@@ -43,6 +43,6 @@ class SignUpController extends Controller
             echo 0;
         }
         }
-        
+
     }
 }

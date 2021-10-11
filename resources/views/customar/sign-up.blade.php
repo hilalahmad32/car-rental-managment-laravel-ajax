@@ -58,7 +58,7 @@
                         <div class="form-group">
                             <button class="btn btn-success">Sign Up</button>
                         </div>
-                        <span>Already Acount ? <a href="signin.html">Sign
+                        <span>Already Acount ? <a href="{{ route('signin') }}">Sign
                                 in</a></span>
                     </form>
                 </div>

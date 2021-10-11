@@ -22,7 +22,7 @@
                         <div class="form-group">
                             <button class="btn btn-success">Login</button>
                         </div>
-                        <span>Create Acount ? <a href="signup.html">Sign
+                        <span>Create Acount ? <a href="{{ route('signup') }}">Sign
                                 Up</a></span>
                     </form>
                 </div>
