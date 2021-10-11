@@ -1,40 +1,43 @@
 <?php
 
-use App\Http\Controllers\admin\Aboutcontroller;
-use App\Http\Controllers\admin\CarBookController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\CarCategory;
-use App\Http\Controllers\admin\CarController;
-use App\Http\Controllers\admin\CategoryController;
-use App\Http\Controllers\admin\CommentsController;
-use App\Http\Controllers\admin\ContactController as AdminContactController;
-use App\Http\Controllers\admin\CustomarController;
-use App\Http\Controllers\admin\DashboardController;
-use App\Http\Controllers\admin\GalleryController;
-use App\Http\Controllers\admin\LikesController;
-use App\Http\Controllers\admin\PostController;
-use App\Http\Controllers\admin\ReviewController;
-use App\Http\Controllers\admin\UpdateProfile;
-use App\Http\Controllers\admin\UserController;
-use App\Http\Controllers\customar\Aboutcontroller as CustomarAboutcontroller;
-use App\Http\Controllers\customar\AccountController;
-use App\Http\Controllers\customar\BlogCommentsControler;
-use App\Http\Controllers\customar\BlogController;
-use App\Http\Controllers\customar\BookCarController;
-use App\Http\Controllers\customar\CarController as CustomarCarController;
-use App\Http\Controllers\customar\CategoryPostController;
-use App\Http\Controllers\customar\Comments;
-use App\Http\Controllers\customar\ContactController;
-use App\Http\Controllers\customar\GalleryController as CustomarGalleryController;
-use App\Http\Controllers\customar\HomeController;
-use App\Http\Controllers\customar\LikeController;
-use App\Http\Controllers\customar\LoginController;
-use App\Http\Controllers\customar\LogoutController;
-use App\Http\Controllers\customar\ResetPasswordController;
-use App\Http\Controllers\customar\SignUpController;
-use App\Http\Controllers\customar\SubscribeController;
-use App\Http\Controllers\customar\UpdateProfileController;
-
+use App\Http\Controllers\admin\{
+    CarCategory,
+    CarController,
+    CategoryController,
+    CommentsController,
+    ContactController as AdminContactController,
+    CustomarController,
+    DashboardController,
+    GalleryController,
+    LikesController,
+    PostController,
+    ReviewController,
+    UpdateProfile,
+    UserController
+};
+use App\Http\Controllers\customar\{
+    Aboutcontroller as CustomarAboutcontroller,
+    CarBookController,
+    Aboutcontroller,
+    AccountController,
+    BlogCommentsControler,
+    BlogController,
+    BookCarController,
+    CarController as CustomarCarController,
+    CategoryPostController,
+    Comments,
+    ContactController,
+    GalleryController as CustomarGalleryController,
+    HomeController,
+    LikeController,
+    LoginController,
+    LogoutController,
+    ResetPasswordController,
+    SignUpController,
+    SubscribeController,
+    UpdateProfileController
+};
 // Route::get('/', function () {
 //     return view('customar.home');
 // });
@@ -71,6 +74,7 @@ Route::group(["middleware" => "cAuth"], function () {
     Route::get("/reset-password", [ResetPasswordController::class, "index"])->name("reset-password");
     Route::post("/reset-password", [ResetPasswordController::class, "reset_password"]);
 });
+
 Route::group(["middleware" => "noauth"], function () {
     Route::get("/signup", [SignUpController::class, "index"])->name("signup");
     Route::post("/create", [SignUpController::class, "create"]);
@@ -79,104 +83,109 @@ Route::group(["middleware" => "noauth"], function () {
 });
 
 
-
-Route::middleware(["auth"])->group(function () {
-    Route::get("/admin/dashboard", [DashboardController::class, "index"])->name("dashboard");
-    Route::get("/admin/get-car-book", [DashboardController::class, "get"]);
-    Route::post("/admin/confirm-book", [DashboardController::class, "confirm"]);
-    Route::post("/admin/not-confirm-book", [DashboardController::class, "not_confirm"]);
-    Route::get("/admin/load-customars", [DashboardController::class, "customars"]);
-    Route::get("/admin/all-customars", [CustomarController::class, "index"])->name("customars");
-    Route::get("/admin/load-all-customars", [CustomarController::class, "customars"]);
-    Route::get("/admin/likes", [LikesController::class, "index"])->name("likes");
-    Route::get("/admin/review", [ReviewController::class, "index"])->name("review");
-    Route::get("/admin/load-all-review", [ReviewController::class, "review"]);
-    Route::get("/admin/delete-review", [ReviewController::class, "delete"]);
-    Route::get("/admin/car-books", [CarBookController::class, "index"])->name("car-book");
-    Route::get("/admin/load-all-car-book", [CarBookController::class, "car_book"]);
-    Route::get("/admin/comments", [CommentsController::class, "index"])->name("comments");
-    Route::get("/admin/load-all-comments", [CommentsController::class, "comments"]);
-    Route::get("/admin/delete-comments", [CommentsController::class, "delete"]);
-
-
-    // users
-    Route::get("/admin/admins", [UserController::class, "index"])->name("admins");
-    Route::get("/admin/get-user", [UserController::class, "get"]);
-    Route::get("/admin/edit-user", [UserController::class, "edit"]);
-    Route::post("/admin/update-user", [UserController::class, "update"]);
-    Route::get("/admin/delete-user", [UserController::class, "delete"]);
-    Route::get("/admin/total-user", [UserController::class, "totalCount"]);
-
-    // car category
-    Route::get("/admin/car_category", [CarCategory::class, "index"])->name("car_category");
-    Route::get("/admin/loadData", [CarCategory::class, "loadData"])->name("loadData");
-    Route::get("/admin/searchData", [CarCategory::class, "searchData"])->name("search");
-    Route::post("/admin/car_cat_category", [CarCategory::class, "create"])->name("add");
-    Route::get("/admin/edit_category", [CarCategory::class, "edit"])->name("edit");
-    Route::post("/admin/update_category", [CarCategory::class, "update"])->name("update");
-    Route::get("/admin/delete_category", [CarCategory::class, "delete"])->name("delete");
-    Route::get("/admin/total-car-category",[CarCategory::class,"totalCount"]);
+// admin/*
+Route::prefix('admin')->group(function () {
+    Route::middleware(["auth"])->group(function () {
+        Route::get("/dashboard", [DashboardController::class, "index"])->name("dashboard");
+        Route::get("/get-car-book", [DashboardController::class, "get"]);
+        Route::post("/confirm-book", [DashboardController::class, "confirm"]);
+        Route::post("/not-confirm-book", [DashboardController::class, "not_confirm"]);
+        Route::get("/load-customars", [DashboardController::class, "customars"]);
+        Route::get("/all-customars", [CustomarController::class, "index"])->name("customars");
+        Route::get("/load-all-customars", [CustomarController::class, "customars"]);
+        Route::get("/likes", [LikesController::class, "index"])->name("likes");
+        Route::get("/review", [ReviewController::class, "index"])->name("review");
+        Route::get("/load-all-review", [ReviewController::class, "review"]);
+        Route::get("/delete-review", [ReviewController::class, "delete"]);
+        Route::get("/car-books", [CarBookController::class, "index"])->name("car-book");
+        Route::get("/load-all-car-book", [CarBookController::class, "car_book"]);
+        Route::get("/comments", [CommentsController::class, "index"])->name("comments");
+        Route::get("/load-all-comments", [CommentsController::class, "comments"]);
+        Route::get("/delete-comments", [CommentsController::class, "delete"]);
 
 
-    // car routes
-    Route::get("/admin/car", [CarController::class, "index"])->name("car");
-    Route::post("/admin/create", [CarController::class, "create"]);
-    Route::get("/admin/get", [CarController::class, "get"]);
-    Route::get("/admin/search", [CarController::class, "search"]);
-    Route::get("/admin/edit", [CarController::class, "edit"]);
-    Route::post("/admin/update", [CarController::class, "update"]);
-    Route::get("/admin/delete", [CarController::class, "delete"]);
-    Route::get("/admin/total-car",[CarController::class,"totalCount"]);
+        // users
+        Route::get("admins", [UserController::class, "index"])->name("admins");
+
+        Route::get("/get-user", [UserController::class, "get"]);
+        Route::get("/edit-user", [UserController::class, "edit"]);
+        Route::post("/update-user", [UserController::class, "update"]);
+        Route::get("/delete-user", [UserController::class, "delete"]);
+        Route::get("/total-user", [UserController::class, "totalCount"]);
+
+        // car category
+        Route::get("/car_category", [CarCategory::class, "index"])->name("car_category");
+        Route::get("/loadData", [CarCategory::class, "loadData"])->name("loadData");
+        Route::get("/searchData", [CarCategory::class, "searchData"])->name("search");
+        Route::post("/car_cat_category", [CarCategory::class, "create"])->name("add");
+        Route::get("/edit_category", [CarCategory::class, "edit"])->name("edit");
+        Route::post("/update_category", [CarCategory::class, "update"])->name("update");
+        Route::get("/delete_category", [CarCategory::class, "delete"])->name("delete");
+        Route::get("/total-car-category",[CarCategory::class,"totalCount"]);
 
 
-
-    // post category route
-    Route::get("/admin/category", [CategoryController::class, "index"])->name("category");
-    Route::post("/admin/createcategory", [CategoryController::class, "create"]);
-    Route::get("/admin/getcategory", [CategoryController::class, "get"]);
-    Route::get("/admin/edit-category", [CategoryController::class, "edit"]);
-    Route::post("/admin/update-category", [CategoryController::class, "update"]);
-    Route::get("/admin/search-category", [CategoryController::class, "search"]);
-    Route::get("/admin/delete-category", [CategoryController::class, "delete"]);
-    Route::get("/admin/total-category",[CategoryController::class,"totalCount"]);
-
-
-    // posts routes
-    Route::get("/admin/posts", [PostController::class, "index"])->name("post");
-    Route::post("/admin/create-posts", [PostController::class, "create"]);
-    Route::get("/admin/get-posts", [PostController::class, "get"]);
-    Route::get("/admin/edit-posts", [PostController::class, "edit"]);
-    Route::post("/admin/update-posts", [PostController::class, "update"]);
-    Route::get("/admin/search-posts", [PostController::class, "search"]);
-    Route::get("/admin/delete-posts", [PostController::class, "delete"]);
-    Route::get("/admin/total-posts",[PostController::class,"totalCount"]);
-    
-    // gellary Routes
-
-    Route::get("/admin/gallery", [GalleryController::class, "index"])->name("gallerys");
-    Route::post("/admin/add_gallery", [GalleryController::class, "create"]);
-    Route::get("/admin/get_gallery", [GalleryController::class, "get"]);
-    Route::get("/admin/edit-gallery", [GalleryController::class, "edit"]);
-    Route::post("/admin/update-gallery", [GalleryController::class, "update"]);
-    Route::get("/admin/delete-gallery", [GalleryController::class, "delete"]);
-    Route::get("/admin/total-gallery",[GalleryController::class,"totalCount"]);
+        // car routes
+        Route::get("/car", [CarController::class, "index"])->name("car");
+        Route::post("/create", [CarController::class, "create"]);
+        Route::get("/get", [CarController::class, "get"]);
+        Route::get("/search", [CarController::class, "search"]);
+        Route::get("/edit", [CarController::class, "edit"]);
+        Route::post("/update", [CarController::class, "update"]);
+        Route::get("/delete", [CarController::class, "delete"]);
+        Route::get("/total-car",[CarController::class,"totalCount"]);
 
 
 
-    // About routes
-    Route::get("/admin/about", [Aboutcontroller::class, "index"])->name("about");
-    Route::post("/admin/add-about", [Aboutcontroller::class, "addAbout"]);
-    Route::get("/admin/get-about", [Aboutcontroller::class, "getAbout"]);
-    Route::get("/admin/read-more", [Aboutcontroller::class, "readMore"]);
-    Route::get("/admin/edit-about", [Aboutcontroller::class, "editAbout"]);
-    Route::post("/admin/update-about", [Aboutcontroller::class, "updateAbout"]);
-    Route::get("/admin/delete-about/", [Aboutcontroller::class, "deleteAbout"]);
+        // post category route
+        Route::get("/category", [CategoryController::class, "index"])->name("category");
+        Route::post("/createcategory", [CategoryController::class, "create"]);
+        Route::get("/getcategory", [CategoryController::class, "get"]);
+        Route::get("/edit-category", [CategoryController::class, "edit"]);
+        Route::post("/update-category", [CategoryController::class, "update"]);
+        Route::get("/search-category", [CategoryController::class, "search"]);
+        Route::get("/delete-category", [CategoryController::class, "delete"]);
+        Route::get("/total-category",[CategoryController::class,"totalCount"]);
 
 
-    // update profile
-    Route::get("/admin/profiles", [UpdateProfile::class, "index"])->name("profiles");
+        // posts routes
+        Route::get("/posts", [PostController::class, "index"])->name("post");
+        Route::post("/create-posts", [PostController::class, "create"]);
+        Route::get("/get-posts", [PostController::class, "get"]);
+        Route::get("/edit-posts", [PostController::class, "edit"]);
+        Route::post("/update-posts", [PostController::class, "update"]);
+        Route::get("/search-posts", [PostController::class, "search"]);
+        Route::get("/delete-posts", [PostController::class, "delete"]);
+        Route::get("/total-posts",[PostController::class,"totalCount"]);
 
-    // get contacts
-    Route::get("/admin/contact", [AdminContactController::class, "index"])->name("contact");
+        // gellary Routes
+
+        Route::get("/gallery", [GalleryController::class, "index"])->name("gallerys");
+        Route::post("/add_gallery", [GalleryController::class, "create"]);
+        Route::get("/get_gallery", [GalleryController::class, "get"]);
+        Route::get("/edit-gallery", [GalleryController::class, "edit"]);
+        Route::post("/update-gallery", [GalleryController::class, "update"]);
+        Route::get("/delete-gallery", [GalleryController::class, "delete"]);
+        Route::get("/total-gallery",[GalleryController::class,"totalCount"]);
+
+
+
+        // About routes
+        Route::get("/about", [Aboutcontroller::class, "index"])->name("about");
+        Route::post("/add-about", [Aboutcontroller::class, "addAbout"]);
+        Route::get("/get-about", [Aboutcontroller::class, "getAbout"]);
+        Route::get("/read-more", [Aboutcontroller::class, "readMore"]);
+        Route::get("/edit-about", [Aboutcontroller::class, "editAbout"]);
+        Route::post("/update-about", [Aboutcontroller::class, "updateAbout"]);
+        Route::get("/delete-about", [Aboutcontroller::class, "deleteAbout"]);
+
+
+        // update profile
+        Route::get("/profiles", [UpdateProfile::class, "index"])->name("profiles");
+
+        // get contacts
+        Route::get("/contact", [AdminContactController::class, "index"])->name("contact");
+    });
 });
+
+
 require __DIR__ . '/auth.php';

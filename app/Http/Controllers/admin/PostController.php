@@ -18,14 +18,12 @@ class PostController extends Controller
     }
     public function totalCount()
     {
-        $output = "";
-        $posts = Posts::all();
-        echo $output .=count($posts);
+        echo Posts::count();
     }
     public function get()
     {
         $output = "";
-        $posts = Posts::orderBy("id", "DESC")->get();
+        $posts = Posts::latest()->get();
         if (count($posts) > 0) {
             $output .= "
             <div class='table-responsve'>
@@ -69,7 +67,10 @@ class PostController extends Controller
     {
         $output = "";
         $search = '%' . $request->search . "%";
-        $posts = Posts::orderBy("id", "DESC")->where("title", "like", $search)->get();
+        $posts = Posts::where("title", "like", $search)
+                        ->orWhere("id", "like", $search)
+                        ->orWhere("description", "like", $search)
+                        ->latest()->get();
         if (count($posts) > 0) {
             $output .= "
             <div class='table-responsve'>
@@ -111,24 +112,19 @@ class PostController extends Controller
 
     public function create(Request $request)
     {
-        $car = new Posts();
-
         $image = $request->file("image");
         $new_image = rand() . "." . $image->extension();
         $image->move(public_path("upload/posts"), $new_image);
 
+        Posts::create([
+            'cat_id'=>$request->cat_id,
+            'user_id'=>Auth::id(),
+            'title'=>$request->title,
+            'description'=>$request->desc,
+            'image'=>$new_image,
 
-        $car->cat_id = $request->cat_id;
-        $car->user_id = Auth::user()->id;
-        $car->title = $request->title;
-        $car->description = $request->desc;
-        $car->image = $new_image;
-        $result = $car->save();
-        if ($result) {
+        ]);
             echo 1;
-        } else {
-            echo 0;
-        }
     }
     public function edit(Request $request)
     {
